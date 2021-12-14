@@ -12,7 +12,18 @@ export default function ItemList(props) {
         return props.items.map((item) => {
             return (
                 <Container key={item.id}>
-                    <Item item={item} key={item.id} user_id={props.user_id} group_id={props.group_id}/>
+                    <Item
+                        item={item}
+                        key={item.id}
+                        user_id={props.user_id}
+                        group_id={props.group_id}
+                        setItems={props.setItems}
+                        show_actions={props.show_actions}
+                        setAlertVariant={props.setAlertVariant}
+                        setAlertHeading={props.setAlertHeading}
+                        setAlertMsg={props.setAlertMsg}
+                        setShowAlert={props.setShowAlert}
+                    />
                 </Container>
             );
         })

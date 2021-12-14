@@ -13,7 +13,7 @@ export default function Logout(props) {
   };
 
   return (
-    <Button variant="secondary" onClick={clickHandler}>
+    <Button variant="secondary" onClick={clickHandler} style={{marginLeft: "1em", marginRight: "1em"}}>
       Logout
     </Button>
   );

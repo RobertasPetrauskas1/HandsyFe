@@ -50,7 +50,7 @@ export default function Register(props) {
 
   return (
     <>
-      <Button variant="secondary" onClick={() => setShow(true)}>
+      <Button variant="secondary" onClick={() => setShow(true)} style={{marginLeft: "1em", marginRight: "1em"}}>
         Register
       </Button>
       <Modal
@@ -133,7 +133,7 @@ export default function Register(props) {
                 type="text"
                 {...register("birth_date", {
                   required: "Enter your birth date in a format of yyyy-mm-dd",
-                  pattern: /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/
+                  pattern: /^\d{4}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$/
                 })}
                 placeholder="1999-01-01"
               />

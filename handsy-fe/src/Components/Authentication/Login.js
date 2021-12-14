@@ -38,7 +38,7 @@ export default function Login(props){
     }
 
     return <>
-    <Button className="ml-2" variant="secondary" onClick={() => setShow(true)} style={{marginLeft: "1em"}}>Login</Button>
+    <Button className="ml-2" variant="secondary" onClick={() => setShow(true)} style={{marginLeft: "1em", marginRight: "1em"}}>Login</Button>
     <Modal
     show={show}
     onHide={() => setShow(false)}

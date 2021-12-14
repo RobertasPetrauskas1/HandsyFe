@@ -24,10 +24,12 @@ function App() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/auth/validate", {
+    let token = localStorage.getItem("TOKEN")
+    if(token){
+      fetch("http://localhost:8000/auth/validate", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer " + localStorage.getItem("TOKEN"),
+        "Authorization": "Bearer " + token,
       },
     })
       .then((res) => res.status)
@@ -36,7 +38,7 @@ function App() {
           if (res === 200) {
             setIsLoggedIn(true);
           } else {
-            if (localStorage.getItem("TOKEN")) {
+            if (token) {
               localStorage.removeItem("TOKEN");
               setAlertVariant("warning");
               setAlertHeading("Your session has ended. Please login");
@@ -49,6 +51,9 @@ function App() {
           console.log(err);
         }
       );
+    } else {
+      setIsLoggedIn(false);
+    }
   }, []);
 
   return (
@@ -73,21 +78,25 @@ function App() {
         <Routes>
           <Route exact strict path="/" element={<HomePage />} />
           <Route exact strict path="/user/:user_id" element={<UserPage
+            isLoggedIn={isLoggedIn}
             setAlertVariant={setAlertVariant}
             setAlertHeading={setAlertHeading}
             setAlertMsg={setAlertMsg}
             setShowAlert={setShowAlert} />} />
           <Route exact strict path="/user/:user_id/group" element={<UserGroups
+            isLoggedIn={isLoggedIn}
             setAlertVariant={setAlertVariant}
             setAlertHeading={setAlertHeading}
             setAlertMsg={setAlertMsg}
             setShowAlert={setShowAlert} />} />
           <Route exact strict path="/user/:user_id/group/:group_id" element={<GroupPage
+            isLoggedIn={isLoggedIn}
             setAlertVariant={setAlertVariant}
             setAlertHeading={setAlertHeading}
             setAlertMsg={setAlertMsg}
             setShowAlert={setShowAlert} />} />
           <Route exact strict path="/user/:user_id/group/:group_id/item/:item_id" element={<ItemPage
+            isLoggedIn={isLoggedIn}
             setAlertVariant={setAlertVariant}
             setAlertHeading={setAlertHeading}
             setAlertMsg={setAlertMsg}

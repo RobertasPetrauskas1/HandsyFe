@@ -11,6 +11,11 @@ export default function UserGroups(props) {
     const [isSet, setIsSet] = useState(false);
     const [groups, setGroups] = useState([])
     const [isSetGroups, setIsSetGroups] = useState(false)
+    const mountedStyle = { animation: "inAnimation 500ms ease-in" };
+    const unmountedStyle = {
+        animation: "outAnimation 500ms ease-out",
+        animationFillMode: "forwards"
+    };
 
     useEffect(() => {
         fetch(`http://localhost:8000/user/${params.user_id}`)
@@ -77,7 +82,7 @@ export default function UserGroups(props) {
     return (
         <Container fluid className="pt-5 user-page">
             {isSet ? (
-                <>
+                <div style={isSet ? mountedStyle : unmountedStyle}>
                     <Row className="pb-5">
                         <Col></Col>
                         <Col xl={6} lg={8} sm={10} xs={12}><h5 className='text-center'>Groups created by {user.first_name + " " + user.last_name}:</h5></Col>
@@ -92,13 +97,13 @@ export default function UserGroups(props) {
                             >
                                 <Modal.Header closeButton>
                                     <Modal.Title id="example-custom-modal-styling-title">
-                                        Register
+                                        New Group
                                     </Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <Form onSubmit={handleSubmit(onSubmit)} id="RegisterForm">
                                         <Form.Group>
-                                            <Form.Label>First name</Form.Label>
+                                            <Form.Label>Name</Form.Label>
                                             <Form.Control
                                                 type="text"
                                                 {...register("name", {
@@ -138,7 +143,9 @@ export default function UserGroups(props) {
                             </Modal>
                         </Col>
                     </Row>
-                    <GroupList
+                    {isSetGroups ? (
+                        <div style={isSetGroups ? mountedStyle : unmountedStyle}>
+                        <GroupList
                         setGroups={setGroups}
                         groups={groups}
                         show_actions={true}
@@ -147,8 +154,10 @@ export default function UserGroups(props) {
                         setAlertMsg={props.setAlertMsg}
                         setShowAlert={props.setShowAlert}
                     />
-                </>
-            ) : <h5 className="text-center">Loading group data...</h5>}
+                    </div>
+                    ) : <h5 className="text-center">Loading group items...</h5>}
+                </div>
+            ) : <h5 style={isSet ? mountedStyle : unmountedStyle} className="text-center">Loading group data...</h5>}
         </Container>
     );
 }

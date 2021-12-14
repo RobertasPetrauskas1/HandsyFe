@@ -13,7 +13,17 @@ export default function CommentList(props) {
         return props.comments.map((comment) => {
             return (
                 <Container key={comment.id}>
-                    <Comment comment={comment} user_id={props.user_id} group_id={props.group_id} item_id={props.item_id} />
+                    <Comment 
+                    comment={comment}
+                    setComments={props.setComments} 
+                    user_id={props.user_id} 
+                    group_id={props.group_id} 
+                    item_id={props.item_id}
+                    setAlertVariant={props.setAlertVariant}
+                    setAlertHeading={props.setAlertHeading}
+                    setAlertMsg={props.setAlertMsg}
+                    setShowAlert={props.setShowAlert} 
+                    />
                 </Container>
             );
         })

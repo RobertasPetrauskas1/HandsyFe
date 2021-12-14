@@ -5,6 +5,11 @@ import GroupList from "../../Components/Group/GroupList";
 export default function HomePage() {
     const [groups, setGroups] = useState([]);
     const [isSet, setIsSet] = useState(false);
+    const mountedStyle = { animation: "inAnimation 500ms ease-in" };
+    const unmountedStyle = {
+        animation: "outAnimation 500ms ease-out",
+        animationFillMode: "forwards"
+    };
 
     useEffect(() => {
         fetch(`http://localhost:8000/group`)
@@ -22,7 +27,11 @@ export default function HomePage() {
                 <Col xl={6} lg={8} sm={10} xs={12}><h3 className='text-center'>Popular groups</h3></Col>
                 <Col></Col>
             </Row>
-            {isSet ? <GroupList groups={groups} /> : <h5 className="text-center">Loading popular groups... </h5>}
+            {isSet ? (
+                <div style={isSet ? mountedStyle : unmountedStyle}>
+                    <GroupList groups={groups} />
+                </div>
+            ) : <h5 style={isSet ? mountedStyle : unmountedStyle} className="text-center">Loading popular groups... </h5>}
         </Container>
     );
 }
